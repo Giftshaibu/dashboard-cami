@@ -27,7 +27,7 @@ export function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
   return (
     <header
       className={cn(
-        "sticky z-30 flex h-16 items-center gap-3 border-b bg-background/95 px-4 backdrop-blur transition-[top] duration-200 supports-[backdrop-filter]:bg-background/80 lg:px-6",
+        "sticky z-30 flex h-16 items-center gap-3 border-b border-border/80 bg-background/82 px-4 backdrop-blur-xl transition-[top] duration-200 ease-[var(--ease-out-ui)] supports-[backdrop-filter]:bg-background/72 lg:px-6",
         liveMode ? "top-0" : "top-12"
       )}
     >
@@ -36,7 +36,7 @@ export function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
       </Button>
       <div className="relative hidden w-full max-w-md md:block">
         <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-        <Input className="pl-9" placeholder="Search transactions, settlements, customers" />
+        <Input className="border-border/80 bg-muted/35 pl-9 focus-visible:bg-background" placeholder="Search transactions, settlements, customers" />
       </div>
       <div className="ml-auto flex items-center gap-2">
         <ModeToggle />
@@ -51,7 +51,7 @@ export function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
         </ActionButton>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button className="flex items-center gap-2 rounded-md border bg-card p-1.5 text-left hover:bg-muted">
+            <button className="flex items-center gap-2 rounded-md border border-border/80 bg-card/80 p-1.5 text-left shadow-xs transition-[background-color,border-color,transform] duration-150 ease-[var(--ease-out-ui)] hover:border-ring/35 hover:bg-muted active:scale-[0.97]">
               <Avatar>{merchant.tradingName.slice(0, 2).toUpperCase()}</Avatar>
             </button>
           </DropdownMenuTrigger>

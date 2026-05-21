@@ -17,11 +17,11 @@ type DataTableProps<T> = {
 
 export function DataTable<T>({ data, columns, getRowKey }: DataTableProps<T>) {
   return (
-    <Card>
+    <Card className="overflow-hidden">
       <CardContent className="p-0">
         <Table>
           <TableHeader>
-            <TableRow className="bg-muted/50 hover:bg-muted/50">
+            <TableRow className="bg-muted/45 hover:bg-muted/45">
               {columns.map((column) => (
                 <TableHead key={column.header} className={column.className}>
                   {column.header}

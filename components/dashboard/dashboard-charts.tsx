@@ -7,7 +7,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { collectionsTrend, providerChartData } from "@/lib/mock/dashboard-data"
 import { formatMoney } from "@/lib/utils/format-money"
 
-const providerColors = ["#dc2626", "#0284c7"]
+const providerColors = ["var(--chart-2)", "var(--chart-1)"]
+const axisColor = "var(--muted-foreground)"
+const gridColor = "var(--border)"
 
 export function ProviderCollectionsChart() {
   const mounted = useChartsMounted()
@@ -22,10 +24,20 @@ export function ProviderCollectionsChart() {
         {mounted ? (
           <ResponsiveContainer width="100%" height="100%" minWidth={300} minHeight={240}>
             <BarChart data={providerChartData}>
-              <CartesianGrid strokeDasharray="3 3" vertical={false} />
-              <XAxis dataKey="provider" tickLine={false} axisLine={false} />
-              <YAxis tickFormatter={(value) => `${Number(value) / 1000}k`} tickLine={false} axisLine={false} />
-              <Tooltip formatter={(value) => formatMoney(Number(value))} />
+              <CartesianGrid stroke={gridColor} strokeDasharray="3 3" vertical={false} />
+              <XAxis dataKey="provider" tick={{ fill: axisColor, fontSize: 12 }} tickLine={false} axisLine={false} />
+              <YAxis tick={{ fill: axisColor, fontSize: 12 }} tickFormatter={(value) => `${Number(value) / 1000}k`} tickLine={false} axisLine={false} />
+              <Tooltip
+                cursor={{ fill: "var(--muted)" }}
+                formatter={(value) => formatMoney(Number(value))}
+                contentStyle={{
+                  background: "var(--popover)",
+                  border: "1px solid var(--border)",
+                  borderRadius: 8,
+                  boxShadow: "0 12px 32px rgb(0 0 0 / 0.12)",
+                  color: "var(--popover-foreground)",
+                }}
+              />
               <Bar dataKey="amount" radius={[6, 6, 0, 0]}>
                 {providerChartData.map((entry, index) => (
                   <Cell key={entry.provider} fill={providerColors[index]} />
@@ -54,11 +66,21 @@ export function CollectionsTrendChart() {
         {mounted ? (
           <ResponsiveContainer width="100%" height="100%" minWidth={300} minHeight={240}>
             <LineChart data={collectionsTrend}>
-              <CartesianGrid strokeDasharray="3 3" vertical={false} />
-              <XAxis dataKey="day" tickLine={false} axisLine={false} />
-              <YAxis tickFormatter={(value) => `${Number(value) / 1000}k`} tickLine={false} axisLine={false} />
-              <Tooltip formatter={(value) => formatMoney(Number(value))} />
-              <Line type="monotone" dataKey="collections" stroke="#18181b" strokeWidth={2} dot={false} />
+              <CartesianGrid stroke={gridColor} strokeDasharray="3 3" vertical={false} />
+              <XAxis dataKey="day" tick={{ fill: axisColor, fontSize: 12 }} tickLine={false} axisLine={false} />
+              <YAxis tick={{ fill: axisColor, fontSize: 12 }} tickFormatter={(value) => `${Number(value) / 1000}k`} tickLine={false} axisLine={false} />
+              <Tooltip
+                cursor={{ stroke: "var(--border)" }}
+                formatter={(value) => formatMoney(Number(value))}
+                contentStyle={{
+                  background: "var(--popover)",
+                  border: "1px solid var(--border)",
+                  borderRadius: 8,
+                  boxShadow: "0 12px 32px rgb(0 0 0 / 0.12)",
+                  color: "var(--popover-foreground)",
+                }}
+              />
+              <Line type="monotone" dataKey="collections" stroke="var(--chart-1)" strokeWidth={2.5} dot={false} activeDot={{ r: 4, fill: "var(--chart-1)" }} />
             </LineChart>
           </ResponsiveContainer>
         ) : (

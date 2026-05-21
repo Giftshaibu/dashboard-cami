@@ -73,7 +73,7 @@ export function AppSidebar({ className, collapsed = false, onCollapsedChange }: 
   return (
     <aside
       className={cn(
-        "flex h-full flex-col border-r bg-sidebar text-sidebar-foreground transition-[width] duration-200",
+        "flex h-full flex-col border-r border-sidebar-border bg-sidebar/95 text-sidebar-foreground backdrop-blur transition-[width] duration-200 ease-[var(--ease-out-ui)]",
         collapsed ? "w-20" : "w-72",
         className
       )}
@@ -81,7 +81,7 @@ export function AppSidebar({ className, collapsed = false, onCollapsedChange }: 
       <div className={cn("border-b py-5", collapsed ? "px-3" : "px-5")}>
         <div className={cn("flex items-center", collapsed ? "flex-col gap-3" : "justify-between gap-3")}>
           <Link href="/dashboard" className={cn("flex min-w-0 items-center gap-3", collapsed && "justify-center")}>
-            <div className="flex size-9 items-center justify-center rounded-md bg-primary text-sm font-semibold text-primary-foreground">
+            <div className="flex size-9 items-center justify-center rounded-md bg-primary text-sm font-semibold text-primary-foreground shadow-sm shadow-primary/20">
               MW
             </div>
             <div className={cn("min-w-0", collapsed && "sr-only")}>
@@ -123,11 +123,18 @@ export function AppSidebar({ className, collapsed = false, onCollapsedChange }: 
                     aria-label={collapsed ? item.label : undefined}
                     title={collapsed ? item.label : undefined}
                     className={cn(
-                      "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+                      "relative flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-[background-color,color,transform] duration-150 ease-[var(--ease-out-ui)] hover:bg-sidebar-accent hover:text-sidebar-accent-foreground active:scale-[0.985]",
                       collapsed && "justify-center px-2",
-                      active && "bg-sidebar-accent text-sidebar-accent-foreground"
+                      active && "bg-sidebar-accent text-sidebar-accent-foreground shadow-xs"
                     )}
                   >
+                    <span
+                      aria-hidden="true"
+                      className={cn(
+                        "absolute left-0 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-full bg-primary opacity-0 transition-opacity duration-150 ease-[var(--ease-out-ui)]",
+                        active && "opacity-100"
+                      )}
+                    />
                     <Icon className="size-4" />
                     <span className={cn(collapsed && "sr-only")}>{item.label}</span>
                   </Link>
@@ -138,7 +145,7 @@ export function AppSidebar({ className, collapsed = false, onCollapsedChange }: 
         ))}
       </nav>
       <div className={cn("border-t", collapsed ? "p-3" : "p-4")}>
-        <div className={cn("rounded-lg border bg-background p-3", collapsed && "flex justify-center p-2")}>
+        <div className={cn("rounded-lg border border-sidebar-border bg-background/70 p-3", collapsed && "flex justify-center p-2")}>
           <div
             className={cn("flex items-center gap-2 text-sm font-medium", collapsed && "justify-center")}
             title="Support"

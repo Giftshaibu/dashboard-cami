@@ -27,11 +27,11 @@ function DashboardShellInner({ children }: { children: ReactNode }) {
   const { liveMode } = useEnvironmentMode()
 
   return (
-    <div className="min-h-dvh bg-muted/30">
+    <div className="min-h-dvh bg-[linear-gradient(180deg,var(--surface-wash)_0%,var(--background)_360px)]">
       <EnvironmentBanner />
       <div
         className={cn(
-          "fixed bottom-0 left-0 z-40 hidden transition-[top,width] duration-200 lg:block",
+          "fixed bottom-0 left-0 z-40 hidden transition-[top,width] duration-200 ease-[var(--ease-out-ui)] lg:block",
           liveMode ? "top-0" : "top-12",
           collapsed ? "w-20" : "w-72"
         )}
@@ -45,13 +45,13 @@ function DashboardShellInner({ children }: { children: ReactNode }) {
       </Sheet>
       <div
         className={cn(
-          "transition-[padding] duration-200",
+          "transition-[padding] duration-200 ease-[var(--ease-out-ui)]",
           liveMode ? "pt-0" : "pt-12",
           collapsed ? "lg:pl-20" : "lg:pl-72"
         )}
       >
         <Topbar onMenuClick={() => setOpen(true)} />
-        <main className="mx-auto flex w-full max-w-[1500px] flex-col gap-6 px-4 py-6 lg:px-8">{children}</main>
+        <main className="mx-auto flex w-full max-w-[1500px] flex-col gap-6 px-4 py-6 lg:px-8 lg:py-8">{children}</main>
       </div>
     </div>
   )
